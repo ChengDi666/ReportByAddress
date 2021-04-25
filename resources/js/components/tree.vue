@@ -2,15 +2,29 @@
   <li class="liItem" @click.stop="dianji($event)">
     <div class="flex" style="align-items: center;border-bottom: 1px solid var(--50);">
       <div class="myItem tou flex-1" style="text-align: left;">
-          <span :style="{paddingLeft: (ceng*20)+'px'}">
+          <span :style="{paddingLeft: (ceng*20)+'px'}" style="display: block;">
             <em v-if="data.hasChildren" class="icon">{{open ? '-' : '+'}}</em>
-            <em v-if="!data.hasChildren" class="icon file-text"></em>
+<!--            <em v-if="!data.hasChildren" class="icon file-text"></em>-->
             {{ data.name }}
         </span>
       </div>
-      <div class="myItem" style="flex-shrink: 1;" v-for="item in data.data">
-        <span> {{item.amount}} </span>
+      <div class="myItem" style="flex-shrink: 1;">
+        <span>{{ data.kfjz ? data.kfjz.name : '—'}}</span>
       </div>
+      <div class="myItem" style="flex-shrink: 1;">
+        <span>{{ data.score ? data.score : '—' }}</span>
+      </div>
+      <div class="myItem" style="flex-shrink: 1;">
+        <span>{{ data.fine ? data.fine : '—' }}</span>
+      </div>
+
+
+
+<!--      <div class="myItem" style="flex-shrink: 1;" v-for="item in data.data">-->
+<!--        <span> {{item.amount}} </span>-->
+<!--      </div>-->
+
+
 <!--      <div class="myItem" style="flex-shrink: 1;">-->
 <!--        <span>{{ data.recyclable }}</span>-->
 <!--      </div>-->
@@ -108,7 +122,13 @@ export default {
       // console.log('ID 是： ', id);
       // console.log(this.data.hasChildren);
       if(this.data.hasChildren) {
-        this.getData(`https://yantai.ljfl.ltd/api/addresses/statistics/${id}/children`).then(res => {
+        // this.getData(`https://yantai.ljfl.ltd/api/addresses/statistics/${id}/children`).then(res => {
+        //   // console.log(res);
+        //   // console.log(res.data.data);
+        //   this.xinData = res.data.data;
+        //   this.open = !this.open
+        // })
+        this.getData(`/api/examamielib/${id}/children`).then(res => {
           // console.log(res);
           // console.log(res.data.data);
           this.xinData = res.data.data;
@@ -127,7 +147,8 @@ export default {
 em.icon {
   display: inline-block;
   width: 20px;
-  height: 2rem;
+  /*height: 2rem;*/
+  height: 3.8125rem;
   margin-right: 5px;
   background-repeat: no-repeat;
   vertical-align: middle;

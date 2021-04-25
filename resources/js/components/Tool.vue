@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heading class="mb-6">分级统计</heading>
+        <heading class="mb-6">考核标准</heading>
 <!--        <card-->
 <!--            class="bg-90 flex flex-col items-center justify-center"-->
 <!--            style="min-height: 300px"-->
@@ -27,11 +27,27 @@
 
       <div class="card flex flex-col justify-center" style="text-align: center;">
         <div v-if="data1.length" class="flex tree-table-title">
+<!--          <div class="myItem tou flex-1">-->
+<!--            <span> 地址 </span>-->
+<!--          </div>-->
+<!--          <div class="myItem" style="flex-shrink: 1;" v-for="item in data1[0].data">-->
+<!--            <span> {{item.type}} </span>-->
+<!--          </div>-->
+
           <div class="myItem tou flex-1">
-            <span> 地址 </span>
+            <span> 考核标准 </span>
           </div>
-          <div class="myItem" style="flex-shrink: 1;" v-for="item in data1[0].data">
-            <span> {{item.type}} </span>
+
+          <div class="myItem" style="flex-shrink: 1;">
+            <span> 扣分机制 </span>
+          </div>
+
+          <div class="myItem" style="flex-shrink: 1;">
+            <span> 建议分值 </span>
+          </div>
+
+          <div class="myItem" style="flex-shrink: 1;">
+            <span> 建议罚款 </span>
           </div>
 
 <!--          <div class="myItem" style="flex-shrink: 1;">-->
@@ -81,7 +97,15 @@ export default {
   },
   methods: {
     getMessage() {
-      this.getData('https://yantai.ljfl.ltd/api/addresses/statistics/1').then(res => {
+      // this.getData('/api/addresses/statistics/1').then(res => {
+      //   // console.log('res: ', res);
+      //   if (res.status === 200) {
+      //     this.data1 = [res.data.data]
+      //   }
+      //   // console.log(this.data1);
+      //   // console.log(res.data.data);
+      // })
+      this.getData('/api/examinelibs?id=1').then(res => {
         // console.log('res: ', res);
         if (res.status === 200) {
           this.data1 = [res.data.data]
@@ -107,6 +131,9 @@ export default {
     mounted() {
         //
       this.getMessage();
+
+      // console.log('query', this.$route.query)
+      // console.log(this.$route.query.type)
     },
 }
 </script>
@@ -128,7 +155,8 @@ ul {
 ul .liItem span {
   cursor: pointer;
   font-size: 14px;
-  line-height: 2rem;
+  /*line-height: 2rem;*/
+  line-height: 3.8125rem;
 }
 liItem .tou {
   width: auto;
@@ -151,7 +179,9 @@ liItem .tou {
   padding-left: .75rem;
   padding-right: .75rem;
   min-width: 56px;
-  height: 3.8125rem;
+  /*height: 3.8125rem;*/
+  height: auto;
+  min-height: 3.8125rem;
   line-height: 3.8125rem;
   font-size: 22px;
 }

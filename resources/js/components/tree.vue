@@ -18,6 +18,10 @@
         <span>{{ data.fine ? data.fine : '—' }}</span>
       </div>
 
+      <div class="myItem" style="flex-shrink: 1;">
+        <span>操作按钮</span>
+      </div>
+
 
 
 <!--      <div class="myItem" style="flex-shrink: 1;" v-for="item in data.data">-->

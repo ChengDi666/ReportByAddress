@@ -50,6 +50,10 @@
             <span> 建议罚款 </span>
           </div>
 
+          <div class="myItem" style="flex-shrink: 1;">
+            <span></span>
+          </div>
+
 <!--          <div class="myItem" style="flex-shrink: 1;">-->
 <!--            <span> 可回收 </span>-->
 <!--          </div>-->

@@ -7,10 +7,16 @@ Nova.booting((Vue, router, store) => {
   router.addRoutes([
     {
       name: 'report-by-address',
-      path: '/report-by-address/:type',
+      path: '/report-by-address/examineLid',
       component: require('./components/treeTable'),
-    }
+    },
+    {
+      name: 'report-by-address',
+      path: '/report-by-address/addresses',
+      component: require('./components/treeTableAddress.vue'),
+    },
   ])
 
   Vue.use(VXETable)
+  Vue.prototype.$XModal = VXETable.modal
 })

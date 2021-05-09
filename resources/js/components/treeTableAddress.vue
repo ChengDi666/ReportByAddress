@@ -18,6 +18,7 @@
       <vxe-table-column field="type" title="类型"></vxe-table-column>
       <vxe-table-column field="checkin" title="入住"></vxe-table-column>
       <vxe-table-column field="ccp" title="党员"></vxe-table-column>
+      <vxe-table-column field="updated_at" title="更新时间" :formatter="formatTime"></vxe-table-column>
       <vxe-table-column title="操作" width="140">
         <template #default="{ row }">
          <vxe-button type="text" style="color: var(--70);" @click="linkTo(row, 'lock')">
@@ -36,6 +37,7 @@
 
 </template>
 <script>
+import XEUtils from 'xe-utils'
 export default {
   data() {
     return {
@@ -98,13 +100,17 @@ export default {
           .then(res => {
             // console.log(res);
             if(res.status == 200) {
-              this.getMessage();
+              // this.getMessage();
+              const matchObj = XEUtils.findTree(this.tableData, item => item === row, this.treeConfig)
+              if (matchObj) {
+                // 从树节点中移除
+                matchObj.items.splice(matchObj.index, 1)
+              }
               this.$toasted.show('地址删除成功', { type: 'success' })
             } else {
               this.$toasted.show('地址正在使用中，无法删除', { type: 'error' })
             }
           })
-          // this.getMessage();
         }
       })
     },
@@ -124,6 +130,7 @@ export default {
           type: item.type ? item.type.name : '—',
           checkin: item.checkin ? '是' : '—',
           ccp: item.ccp ? '是' : '—',
+          updated_at: item.updated_at,
           hasChildren: item.hasChildren
         })
       }
@@ -134,7 +141,10 @@ export default {
     },
     getData(url) { // get 请求数据
       return axios.get(url).then(response => { return response }).catch(err => { return err });
-    }
+    },
+    formatTime ({ cellValue, row, column }) {
+      return XEUtils.toDateString(cellValue, 'yyyy-MM-dd HH:ss:mm')
+    },
   }
 }
 </script>

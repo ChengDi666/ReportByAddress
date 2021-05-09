@@ -38893,7 +38893,7 @@ exports = module.exports = __webpack_require__(73)(false);
 
 
 // module
-exports.push([module.i, "\n.tree-node-icon {\n  width: 24px;\n  text-align: center;\n}\n.vxe-button.type--text:not(.is--disabled):focus{\n  -webkit-box-shadow: none;\n          box-shadow: none;\n  outline-width: 0;\n}\n.tree-table-title{\n  background-color: var(--30);\n  font-weight: 800;\n  font-size: .75rem;\n  color: var(--80);\n  text-transform: uppercase;\n  border-bottom-width: 2px;\n  border-color: var(--50);\n  padding: .75rem;\n  letter-spacing: .05em;\n}\n", ""]);
+exports.push([module.i, "\n.tree-node-icon {\r\n  width: 24px;\r\n  text-align: center;\n}\n.vxe-button.type--text:not(.is--disabled):focus{\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\r\n  outline-width: 0;\n}\n.tree-table-title{\r\n  background-color: var(--30);\r\n  font-weight: 800;\r\n  font-size: .75rem;\r\n  color: var(--80);\r\n  text-transform: uppercase;\r\n  border-bottom-width: 2px;\r\n  border-color: var(--50);\r\n  padding: .75rem;\r\n  letter-spacing: .05em;\n}\r\n", ""]);
 
 // exports
 
@@ -38937,6 +38937,8 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xe_utils__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xe_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xe_utils__);
 //
 //
 //
@@ -38974,6 +38976,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -39037,7 +39041,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.delData('/nova-api/examine-libs?search=&filters=W3siY2xhc3MiOiJBcHBcXE5vdmFcXEZpbHRlcnNcXEV4YW1pbmVMaWJGaWx0ZXIiLCJ2YWx1ZSI6IiJ9XQ%3D%3D&trashed=&resources[]=' + row.id).then(function (res) {
             // console.log(res);
             if (res.status == 200) {
-              _this2.getMessage();
+              // this.getMessage();
+              var matchObj = __WEBPACK_IMPORTED_MODULE_0_xe_utils___default.a.findTree(_this2.tableData, function (item) {
+                return item === row;
+              }, _this2.treeConfig);
+              if (matchObj) {
+                // 从树节点中移除
+                matchObj.items.splice(matchObj.index, 1);
+              }
               _this2.$toasted.show('删除成功', { type: 'success' });
             } else {
               _this2.$toasted.show('正在使用中，无法删除', { type: 'error' });
@@ -39072,6 +39083,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           kfjz: item.kfjz ? item.kfjz.name : '—',
           score: item.score ? item.score : '—',
           fine: item.fine ? item.fine : '—',
+          updated_at: item.updated_at,
           hasChildren: item.hasChildren
         });
       }
@@ -39084,6 +39096,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (err) {
         return err;
       });
+    },
+    formatTime: function formatTime(_ref3) {
+      var cellValue = _ref3.cellValue,
+          row = _ref3.row,
+          column = _ref3.column;
+
+      return __WEBPACK_IMPORTED_MODULE_0_xe_utils___default.a.toDateString(cellValue, 'yyyy-MM-dd HH:ss:mm');
     }
   }
 });
@@ -39143,6 +39162,14 @@ var render = function() {
               _vm._v(" "),
               _c("vxe-table-column", {
                 attrs: { field: "fine", title: "建议惩罚" }
+              }),
+              _vm._v(" "),
+              _c("vxe-table-column", {
+                attrs: {
+                  field: "updated_at",
+                  title: "更新时间",
+                  formatter: _vm.formatTime
+                }
               }),
               _vm._v(" "),
               _c("vxe-table-column", {
@@ -39347,7 +39374,7 @@ exports = module.exports = __webpack_require__(73)(false);
 
 
 // module
-exports.push([module.i, "\n.tree-node-icon {\n  width: 24px;\n  text-align: center;\n}\n.vxe-button.type--text:not(.is--disabled):focus{\n  -webkit-box-shadow: none;\n          box-shadow: none;\n  outline-width: 0;\n}\n.tree-table-title{\n  background-color: var(--30);\n  font-weight: 800;\n  font-size: .75rem;\n  color: var(--80);\n  text-transform: uppercase;\n  border-bottom-width: 2px;\n  border-color: var(--50);\n  padding: .75rem;\n  letter-spacing: .05em;\n}\n", ""]);
+exports.push([module.i, "\n.tree-node-icon {\r\n  width: 24px;\r\n  text-align: center;\n}\n.vxe-button.type--text:not(.is--disabled):focus{\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\r\n  outline-width: 0;\n}\n.tree-table-title{\r\n  background-color: var(--30);\r\n  font-weight: 800;\r\n  font-size: .75rem;\r\n  color: var(--80);\r\n  text-transform: uppercase;\r\n  border-bottom-width: 2px;\r\n  border-color: var(--50);\r\n  padding: .75rem;\r\n  letter-spacing: .05em;\n}\r\n", ""]);
 
 // exports
 
@@ -39358,6 +39385,8 @@ exports.push([module.i, "\n.tree-node-icon {\n  width: 24px;\n  text-align: cent
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xe_utils__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xe_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xe_utils__);
 //
 //
 //
@@ -39395,6 +39424,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -39469,13 +39500,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.delData('/nova-api/addresses?search=&filters=W3siY2xhc3MiOiJBcHBcXE5vdmFcXEZpbHRlcnNcXEFkZHJlc3NGaWx0ZXIiLCJ2YWx1ZSI6IiJ9LHsiY2xhc3MiOiJBcHBcXE5vdmFcXEZpbHRlcnNcXEFkZHJlc3NUeXBlRmlsdGVyIiwidmFsdWUiOltdfV0%3D&trashed=&resources[]=' + row.id).then(function (res) {
             // console.log(res);
             if (res.status == 200) {
-              _this2.getMessage();
+              // this.getMessage();
+              var matchObj = __WEBPACK_IMPORTED_MODULE_0_xe_utils___default.a.findTree(_this2.tableData, function (item) {
+                return item === row;
+              }, _this2.treeConfig);
+              if (matchObj) {
+                // 从树节点中移除
+                matchObj.items.splice(matchObj.index, 1);
+              }
               _this2.$toasted.show('地址删除成功', { type: 'success' });
             } else {
               _this2.$toasted.show('地址正在使用中，无法删除', { type: 'error' });
             }
           });
-          // this.getMessage();
         }
       });
     },
@@ -39498,6 +39535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           type: item.type ? item.type.name : '—',
           checkin: item.checkin ? '是' : '—',
           ccp: item.ccp ? '是' : '—',
+          updated_at: item.updated_at,
           hasChildren: item.hasChildren
         });
       }
@@ -39517,6 +39555,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (err) {
         return err;
       });
+    },
+    formatTime: function formatTime(_ref3) {
+      var cellValue = _ref3.cellValue,
+          row = _ref3.row,
+          column = _ref3.column;
+
+      return __WEBPACK_IMPORTED_MODULE_0_xe_utils___default.a.toDateString(cellValue, 'yyyy-MM-dd HH:ss:mm');
     }
   }
 });
@@ -39576,6 +39621,14 @@ var render = function() {
               _vm._v(" "),
               _c("vxe-table-column", {
                 attrs: { field: "ccp", title: "党员" }
+              }),
+              _vm._v(" "),
+              _c("vxe-table-column", {
+                attrs: {
+                  field: "updated_at",
+                  title: "更新时间",
+                  formatter: _vm.formatTime
+                }
               }),
               _vm._v(" "),
               _c("vxe-table-column", {

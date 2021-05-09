@@ -17,6 +17,7 @@
       <vxe-table-column field="kfjz" title="扣分机制"></vxe-table-column>
       <vxe-table-column field="score" title="建议分值"></vxe-table-column>
       <vxe-table-column field="fine" title="建议惩罚"></vxe-table-column>
+      <vxe-table-column field="updated_at" title="更新时间" :formatter="formatTime"></vxe-table-column>
       <vxe-table-column title="操作" width="100">
         <template #default="{ row }">
 <!--          <vxe-button type="text" style="color: var(&#45;&#45;70);" @click="linkTo(row, 'lock')">-->
@@ -36,6 +37,7 @@
 </template>
 
 <script>
+import XEUtils from 'xe-utils'
 export default {
   data() {
     return {
@@ -87,7 +89,12 @@ export default {
           .then(res => {
             // console.log(res);
             if(res.status == 200) {
-              this.getMessage();
+              // this.getMessage();
+              const matchObj = XEUtils.findTree(this.tableData, item => item === row, this.treeConfig)
+              if (matchObj) {
+                // 从树节点中移除
+                matchObj.items.splice(matchObj.index, 1)
+              }
               this.$toasted.show('删除成功', { type: 'success' })
             } else {
               this.$toasted.show('正在使用中，无法删除', { type: 'error' })
@@ -115,6 +122,7 @@ export default {
           kfjz: item.kfjz ? item.kfjz.name : '—',
           score: item.score ? item.score : '—',
           fine: item.fine ? item.fine : '—',
+          updated_at: item.updated_at,
           hasChildren: item.hasChildren
         })
       }
@@ -122,7 +130,10 @@ export default {
     },
     getData(url) { // get 请求数据
       return axios.get(url).then(response => { return response }).catch(err => { return err });
-    }
+    },
+    formatTime ({ cellValue, row, column }) {
+      return XEUtils.toDateString(cellValue, 'yyyy-MM-dd HH:ss:mm')
+    },
   }
 }
 </script>
